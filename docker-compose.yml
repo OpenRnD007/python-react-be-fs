@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+    web:
+        build: .
+        command: uvicorn app:app --host 0.0.0.0 --port 8000
+        volumes:
+            - .:/usr/src/app
+        ports:
+            - "8000:8000"
+
+        environment:
+            - DATABASE_URL=postgresql://postgres:postgres@db:5432/shipping
+            - SECRET_KEY=2NDHELNH5ADSXT6M5K9DC5F314E0X4CR
+
+        depends_on:
+            - db
+
+    db:
+        image: postgres:latest
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=shipping
+volumes:
+    postgres_data:
+
+## This docker-compose.yml file defines a multi-container Docker application with two services: web and db. 
+## The web service builds a Docker image from the current directory and runs a Uvicorn server to serve a web application. 
+## It is linked to a Postgres database service defined as db, which uses a persistent volume to store database data. 
+## The web service also sets environment variables for the database connection and a secret key for secure operations. 
+## The services are orchestrated such that the web service waits for the db service to be ready before starting. 
+## The version 3.8 specifies the version of the Docker Compose file format.
