@@ -60,18 +60,18 @@ uvicorn app:app --reload
 
 ## API Endpoints
 
-### GET /
+### POST /
 
 Retrieves the current version of shipping data and returns it along with the shipping list.
 ```
 curl -X POST http://localhost:8000/ -H 'Authorization: Token ENV_SECRET_KEY' -H 'Content-Type: application/json' -d '{"rf":"DATETIME | BLANK"}'
 ```
 
-### POST /
+### POST /create
 
 Creates a new shipping entry in the database and updates the version information.
 ```
-curl -X POST http://localhost:8000/ \
+curl -X POST http://localhost:8000/create \
 -H 'Content-Type: application/json' \
 -H 'Authorization: Token ENV_SECRET_KEY' \
 -d '{"type": "bill-of-lading", "title": "Bill of Lading", "position": 1, "image": "https://images.unsplash.com/photo-1612532275214-e4ca76d0e4d1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}'
